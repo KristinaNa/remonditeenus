@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+<html>
+    <body>
+        {% block content %}
+        <h1>Seadme otsing:</h1>
+        <form method="post" action='/seadme_otsing/' name="frmAddserver">
+             {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Nimi: </td>
+                    <td><input type="text" name="name" value="" /> <br/></td>
+                </tr>
+                <tr>
+                    <td>Mudel: </td>
+                    <td><input type="text" name="model" value="" /> <br/></td>
+                </tr>
+                <tr>
+                    <td>Seerianumber: </td>
+                    <td><input type="text" name="reg_no" value="" /> <br/></td>
+                </tr>
+                <tr>
+                    <td>Seadme tüüp: </td>
+                    <td>
+                        <select name="seadme_tyyp">
+                            {% for choice in all_device_types %}
+                            <option value="{{ choice.device_type }}">{{ choice.type_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Kliendi nimi: </td>
+                    <td><input type="text" name="client" value="" /> <br/></td>
+                </tr>
+
+            </table>
+            <input class="submit" type="submit" value="Otsi" />
+        </form>
+        <h3>Seadme otsing</h3>
+        <h4>Leitud: </h4>
+        <table>
+            <tbody>
+            {% for device in find_entries %}
+                <tr>
+                    <td>{{ device.name }}</td>
+                    <td>{{ device.model }}</td>
+                    <td>{{ device.reg_no }}</td>
+                    <td><a href="#">lisa seade tellimusse</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            {% for devices in find_entries_byname %}
+                <h3>{{ devices }}</h3>
+            {% endfor %}
+        </table>
+    {% endblock content %}

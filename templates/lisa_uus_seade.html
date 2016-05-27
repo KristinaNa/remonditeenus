@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+<html>
+    <body>
+        {% block content %}
+    <h1>Seadme lisamine</h1>
+        <form method="post" action='/add/'>
+             {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Nimi: </td>
+                    <td><input type="text" name="nimi" value="{{ radio_object.id }}" /> <br/></td>
+                </tr>
+                <tr>
+                    <td>Mudel: </td>
+                    <td><input type="text" name="mudel" value="{{ radio_object.name }}" /> <br/></td>
+                </tr>
+                <tr>
+                    <td>Kirjeldus: </td>
+                    <td><input type="text" name="kirjeldus" value="{{ radio_object.sequence }}" /> <br/></td>
+                </tr>
+                <tr>
+                    <td>Tootja: </td>
+                    <td><input type="text" name="tootja" value="{{ radio_object.description }}" /> <br/></td>
+                </tr>
+                <tr>
+                    <td>Seerianumber: </td>
+                    <td><input type="text" name="seriaalnumber" value="{{ radio_object.description }}" /> <br/></td>
+                </tr>
+                <tr>
+                    <td>Seadme tuup: </td>
+                    <td>
+                        <select name="seadmetuup">
+                            {% for a in device_type %}
+                                <option>{{ a.type_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+
+            </table>
+            <input class="submit" type="submit" value="Submit" />
+        </form>
+        {% endblock content %}
+
+
+    </body>
+</html>

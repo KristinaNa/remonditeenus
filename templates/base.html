@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Remonditeenus</title>
+    </head>
+    <body>
+       <b>Hello, {{ request.session.member }}</b>
+        <a href="/logout"> Exit</a><br/><br/>
+        <a href="/">Main page</a>
+        {% block content %}{% endblock content %}
+
+    </body>
+</html>

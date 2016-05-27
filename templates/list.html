@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+<html>
+    <body>
+        {% block content %}
+            <table>
+                <th>id</th>
+                <th>name</th>
+                <th>model</th>
+                <th>manufacturer</th>
+            {% for k in a %}
+                <tr>
+                    <td>{{ k.device }}</td>
+                    <td>{{ k.name }}</td>
+                    <td>{{ k.model }}</td>
+                    <td>{{ k.manufacturer }}</td>
+                </tr>
+            {% endfor %}
+            </table><br/>
+            <form action="/add">
+                <input type="submit" value="Lisa uus seade">
+            </form>
+                            <form action="/seadme_otsing">
+                    <input type="submit" value="Seadme otsing">
+                </form>
+
+
+        {% endblock content %}
+
+    </body>
+</html>
