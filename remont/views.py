@@ -6,7 +6,7 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.contrib.auth import logout
-
+import hashlib
 
 from remont.models import *
 
@@ -30,7 +30,11 @@ class RegisterFormView(View):
 class LoginFormView(View):
     def post(self,request):
         m = UserAccount.objects.get(username=request.POST['username'])
-        if m.passw == request.POST.get('password', False):
+        password=request.POST.get('password', False)
+        hash_object = hashlib.md5(password)
+
+        password2=hash_object.hexdigest()
+        if m.passw == password2:
             request.session['member'] = m.username
             if m.subject_type_fk == 4:
                 return HttpResponseRedirect("/invoice")
@@ -54,6 +58,7 @@ class LogoutView(View):
 
 class Add_new_device(View):
     def post(self,request):
+            errors=[]
             name = request.POST.get('nimi')
             model = request.POST.get('mudel')
             description = request.POST.get('kirjeldus')
@@ -61,6 +66,9 @@ class Add_new_device(View):
             serial_num = request.POST.get('seriaalnumber')
             device_type = request.POST.get('seadmetuup')
             #get device_type.id
+            # if(len(name)<2  or len(model)<2 or len(manufacturer)<2 or len(description)<2 or len(serial_num)<2 or len(device_type)<2):
+            #     return HttpResponse("ei voi olla tuhi string")
+            form = SuggestionForm(request.POST)
 
             device_type_query=DeviceType.objects.values('device_type').filter(type_name=device_type)
             device_type_fk=int(device_type_query[0]['device_type'])
@@ -73,9 +81,37 @@ class Add_new_device(View):
             a = ServiceDevice(service_device_status_type_fk=1, device_fk=p.device, service_order_fk=2, service_description=description )
             a.save()
             return redirect('/')
+
+
     def get(self, request):
             device_type_query = DeviceType.objects.values('type_name')
             return render(request, 'lisa_uus_seade.html', {'device_type':device_type_query})
+
+class Service_order(View):
+    def get(self, request):
+        a=Person.objects.values('first_name', 'last_name', 'person')
+
+        return render(request, 'service_order.html', {'person':a})
+    def post(self, request):
+        select=Person.objects.values('first_name', 'last_name', 'person')
+
+        current_user = request.session.get('member')
+
+        klient=request.POST.get('klijendi_kirjeldus')
+        tootaja=request.POST.get('vastuvotja_kirjeldus')
+        customer_fk = request.POST.get('customer')
+        a = Person.objects.values('person').filter(first_name=current_user)
+        employee = int(a[0]['person'])
+
+        service_request_query = ServiceRequest(service_desc_by_customer=klient, service_desc_by_employee=tootaja, service_request_status_type_fk=3, customer_fk=customer_fk,created_by=employee )
+        service_request_query.save()
+
+        service_request_fk=service_request_query.service_request
+        #query=ServiceOrder(so_status_type_fk=1,created_by=employee, service_request_fk=service_request_query,   )
+
+        return render(request, 'service_order.html', {'user':current_user, 'person':select})
+
+
 
 
 
@@ -83,8 +119,6 @@ class Add_new_device(View):
 def list(request):
     a=Device.objects.all().values()
     return render(request, 'list.html', {'a':a})
-
-
 
 
 

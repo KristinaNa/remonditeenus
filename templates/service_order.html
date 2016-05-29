@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+        {% block content %}
+
+            <form method="post" action="/service_order/">
+                {% csrf_token %}
+
+                <p>
+                    <b>Klient:</b>
+                    <select class="js-example-responsive"  id="klient" name="customer" style="width: 20%">
+                        <option> Valige klienti</option>
+                        {% for a in person %}
+                            <option value="{{ a.person }}">{{ a.first_name }}  {{ a.last_name }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+                <table>
+                    <tr>
+                        <td>Kliendi kirjeldus: </td>
+                        <td><textarea name="klijendi_kirjeldus"></textarea></td>
+                    </tr>
+
+                       <tr>
+                        <td>Vastuvõtja kirjeldus: </td>
+                        <td><textarea name="vastuvotja_kirjeldus"></textarea></td></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Salvesta kliendu pöördumine">
+            </form>
+            <input type="submit" value="Vormista tellimus">
+
+        {% endblock content %}
+

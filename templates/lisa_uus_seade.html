@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-<html>
-    <body>
-        {% block content %}
+{% block content %}
     <h1>Seadme lisamine</h1>
         <form method="post" action='/add/'>
              {% csrf_token %}
@@ -41,6 +39,3 @@
         </form>
         {% endblock content %}
 
-
-    </body>
-</html>

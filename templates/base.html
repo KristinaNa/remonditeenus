@@ -3,6 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <title>Remonditeenus</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+        <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+        <script>
+            $( document ).ready(function() {
+                  $('#klient').select2({
+                      placeholder: "Valige klienti",
+                      allowClear: true
+                  });
+            });
+        </script>
+
     </head>
     <body>
        <b>Hello, {{ request.session.member }}</b>

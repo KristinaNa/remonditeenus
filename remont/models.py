@@ -188,7 +188,7 @@ class DjangoSession(models.Model):
 
 
 class Employee(models.Model):
-    employee = models.DecimalField(primary_key=True, max_digits=10, decimal_places=0)
+    employee = models.AutoField(primary_key=True)
     person_fk = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
     enterprise_fk = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
     struct_unit_fk = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
@@ -382,14 +382,14 @@ class ServiceNote(models.Model):
 
 
 class ServiceOrder(models.Model):
-    service_order = models.DecimalField(primary_key=True, max_digits=10, decimal_places=0)
+    service_order = models.AutoField(primary_key=True)
     so_status_type_fk = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
     created_by = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
     service_request_fk = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
     updated_by = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
-    created = models.DateTimeField(blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(blank=True, null=True)
-    status_changed = models.DateTimeField(blank=True, null=True)
+    status_changed = models.DateTimeField(auto_now_add=True)
     status_changed_by = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
     price_total = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
     note = models.TextField(blank=True, null=True)
@@ -416,10 +416,10 @@ class ServicePart(models.Model):
 
 
 class ServiceRequest(models.Model):
-    service_request = models.DecimalField(primary_key=True, max_digits=10, decimal_places=0)
+    service_request = models.AutoField(primary_key=True)
     customer_fk = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
     created_by = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
-    created = models.DateTimeField(blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
     service_desc_by_customer = models.TextField(blank=True, null=True)
     service_desc_by_employee = models.TextField(blank=True, null=True)
     service_request_status_type_fk = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)

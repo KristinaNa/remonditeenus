@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 <html>
     <body>
+    {{ form.as_p }}
         {% block content %}
             <table>
                 <th>id</th>
@@ -19,9 +20,12 @@
             <form action="/add">
                 <input type="submit" value="Lisa uus seade">
             </form>
-                            <form action="/seadme_otsing">
+            <form action="/seadme_otsing">
                     <input type="submit" value="Seadme otsing">
-                </form>
+            </form>
+            <form action="/service_order">
+                    <input type="submit" value="Service order">
+            </form>
 
 
         {% endblock content %}
