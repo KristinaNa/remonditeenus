@@ -16,13 +16,28 @@
                   });
             });
         </script>
+        <style>
+            li{
+                color: red;
+            }
 
+        </style>
     </head>
     <body>
+
        <b>Hello, {{ request.session.member }}</b>
         <a href="/logout"> Exit</a><br/><br/>
         <a href="/">Main page</a>
-        {% block content %}{% endblock content %}
+
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% block content %}{% endblock content %}
 
     </body>
 </html>

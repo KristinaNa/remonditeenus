@@ -1,16 +1,5 @@
 {% extends "client_base.html" %}
 {% block content %}
-{{ query }}
-    <br/>
-    _________________________
-
-    <br/>
-    {{ a }}
-        <br/>
-    _________________________
-
-    <br/>
-
     <table>
     <tr>
         <th></th>
@@ -35,17 +24,17 @@
         {% endfor %}
     </table><br/><br/>
     <form id="ajax-form" style="display:none" method="get">
+        <input type="hidden" id="service-request">
         <label>
-                Description<br/>
-                <textarea id="description-input"></textarea>
+            Description<br/>
+            <textarea id="desc-input"></textarea>
         </label>
-        <button type="submit">Send</button>
+        <button type="submit" id="save_note">Send</button>
 
     </form>
 
     {% for p in a %}
         <b>Tootaja :</b>
-
         {{ p.service_desc_by_employee }}<br/>
     {% endfor %}
 {% endblock content %}

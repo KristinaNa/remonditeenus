@@ -19,6 +19,8 @@ urlpatterns = [
 
 
     url(r'^remont/remontservice/(?P<device_id>\d+)$', views.get_json),
+    url(r'^note/(?P<id>\d+)$', views.get_note_json),
+    url(r'^note/(?P<id>\d+/new)$', views.save_note),
 
 
     url(r'^seadme_otsing/$', views.server_list, name='seadme_otsing'),
@@ -28,4 +30,6 @@ urlpatterns = [
     #url(r'^$', TemplateView.as_view(template_name='lisa_uus_seade.html'), name='main'),
 
 
+    url(r'^service_action/$', views.service_action, name='service_action'),
+    url(r'^service_device/$', views.service_device, name='service_action'),
 ]

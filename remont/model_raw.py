@@ -1,0 +1,18 @@
+class MathOperations:
+    def all_devices (self):
+        return "select distinct device.device,device.name,device.model,device.reg_no from device,service_device,service_order,invoice,customer,person,enterprise where device.device=service_device.device_fk AND service_device.service_order_fk=service_order.service_order And invoice.service_order_fk=service_order.service_order And customer.customer=invoice.customer_fk and person.person = customer.subject_fk and person.person = %s"
+
+    def devices_in_raw (self):
+        return "select distinct service_action.service_action,service_unit_type.type_name as op, service_action.action_description, service_action.service_action,service_action_status_type.type_name, service_type.type_name, device.device , service_action.service_order_fk , service_action.service_amount , service_action.price from service_unit_type,device,service_action,service_action_status_type,service_type,service_device,service_order where service_action.service_action_status_type_fk=service_action_status_type.service_action_status_type and service_action.service_type_fk=service_type.service_type and service_unit_type.service_unit_type=service_type.service_unit_type_fk and device.device=service_device.device_fk and service_device.service_device=service_action.service_device_fk and device.device=%s"
+
+    def devices_parts(self):
+        return "select distinct service_part.service_order_fk, service_part.service_part,service_part.part_name, service_part.part_count, service_part.part_price, device.device from service_part,service_device,device where service_part.service_device_fk = service_device.service_device and service_device.device_fk=device.device and device.device=%s"
+
+    def find_entries_byname(self):
+        return "select distinct device.device,device.name,device.model,device.reg_no from device,service_device,service_order,invoice,customer,person,enterprise where +device.device=service_device.device_fk AND service_device.service_order_fk=service_order.service_order And invoice.service_order_fk=service_order.service_order And customer.customer=invoice.customer_fk and person.person = customer.subject_fk and person.first_name = %s or enterprise.name = %s"
+
+    def find_rows_byorder(self):
+        return "SELECT distinct service_order.price_total,device.reg_no,device.device, service_device.service_device, device.name, service_order.service_order, service_action.service_order_fk,service_action.action_description, service_action.service_amount,service_action.price from service_action,device,service_device,service_order,service_part where service_action.service_device_fk=service_device.service_device and service_device.device_fk=device.device and service_part.service_order_fk=service_order.service_order and service_device.service_order_fk=service_order.service_order and service_order.service_order = %s"
+
+    def find_parts_byorder(self):
+        return "SELECT distinct device.device ,service_device.service_device, device.name, service_order.service_order, service_part.service_order_fk,service_part.part_name, service_part.part_count,service_part.part_price from service_part,device,service_device,service_order where service_part.service_device_fk=service_device.service_device and service_device.device_fk=device.device and service_part.service_order_fk=service_order.service_order and service_device.service_order_fk=service_order.service_order and service_order.service_order = %s"
