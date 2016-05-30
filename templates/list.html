@@ -27,4 +27,30 @@
             </form>
 
 
+
+                    <form id="ajax-form" style="display:none" method="get">
+            <label>
+                Id<br/>
+                <input id="id-input" type="text" readonly="readonly" disabled />
+            </label><br/>
+            <label>
+                Sequence<br/>
+                <input id="name-input" type="text" readonly="readonly" disabled />
+            </label><br/>
+            <label>
+                Name<br/>
+                <input id="model-input" type="text" readonly="readonly" disabled />
+            </label><br/>
+            <label>
+                Description<br/>
+                <textarea id="manufacturer-input" readonly="readonly" disabled ></textarea>
+            </label><br/>
+                        <label>
+                Description<br/>
+                <input id="reg-input" readonly="readonly" disabled >
+            </label><br/>
+            <button type="button" onclick="closePanel()">Close</button>
+        </form>
+
+
         {% endblock content %}

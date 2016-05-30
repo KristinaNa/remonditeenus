@@ -12,9 +12,15 @@ from remont.models import *
 from django.forms import model_to_dict
 import json
 import logging
-
+import decimal
+import json as simplejson
 
 log = logging.getLogger('MYAPP')
+
+def json_encode_decimal(obj):
+    if isinstance(obj, decimal.Decimal):
+        return str(obj)
+    raise TypeError(repr(obj) + " is not JSON serializable")
 
 # autor: Kristina Nassonenko
 class RegisterFormView(View):
@@ -70,8 +76,8 @@ class Add_new_device(View):
             device_type_query = DeviceType.objects.values('type_name')
             form = AddForm(request.POST)
             errors=[]
-            name = request.POST.get('nimi')
-            model = request.POST.get('mudel')
+            name = request.POST.get('nimi').replace(' ', '')
+            model = request.POST.get('mudel').replace(' ', '')
             description = request.POST.get('kirjeldus')
             manufacturer = request.POST.get('tootja')
             serial_num = request.POST.get('seriaalnumber')
@@ -242,7 +248,7 @@ def server_list(request):
 
 
 def get_json(request, device_id):
-    obj = Device.objects.get(device=device_id)
+    obj = Device.objects.get(device=device_id)#.only('description','reg_no','model','manufacturer','name')
    #  obj=Device.objects.values().filter(device=device_id)
    #  a=list(obj)
     dict_obj = model_to_dict( obj )
@@ -253,5 +259,5 @@ def get_json(request, device_id):
 
     # data = serializers.serialize('json', a)
     # return HttpResponse(data, mimetype='application/javascript')
-    data = json.dumps(dict_obj)
+    data = simplejson.dumps(dict_obj, default=json_encode_decimal)
     return HttpResponse(data, content_type='application/json')

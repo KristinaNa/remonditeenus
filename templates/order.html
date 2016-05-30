@@ -23,7 +23,7 @@
     </tr>
         {% for k in device_query %}
            <tr>
-                       <td>{{ k.device }}</td>
+               <td>{{ k.device }}</td>
 
             <td>{{ k.name }}</td>
             <td>{{ k.model }}</td>
@@ -34,9 +34,18 @@
            </tr>
         {% endfor %}
     </table><br/><br/>
+    <form id="ajax-form" style="display:none" method="get">
+        <label>
+                Description<br/>
+                <textarea id="description-input"></textarea>
+        </label>
+        <button type="submit">Send</button>
+
+    </form>
 
     {% for p in a %}
         <b>Tootaja :</b>
+
         {{ p.service_desc_by_employee }}<br/>
     {% endfor %}
 {% endblock content %}
