@@ -1,0 +1,42 @@
+{% extends "client_base.html" %}
+{% block content %}
+{{ query }}
+    <br/>
+    _________________________
+
+    <br/>
+    {{ a }}
+        <br/>
+    _________________________
+
+    <br/>
+
+    <table>
+    <tr>
+        <th></th>
+        <th>Nimi</th>
+        <th>Model</th>
+        <th>Manufacturer</th>
+        <th>Description</th>
+        <th>Reg number</th>
+        <th></th>
+    </tr>
+        {% for k in device_query %}
+           <tr>
+                       <td>{{ k.device }}</td>
+
+            <td>{{ k.name }}</td>
+            <td>{{ k.model }}</td>
+            <td>{{ k.manufacturer }}</td>
+            <td>{{ k.description}}</td>
+            <td>{{ k.reg_no}}</td>
+            <td><a href="#" onclick="lisaMarkus({{ k.device }})">lisa märkus</a> </td>
+           </tr>
+        {% endfor %}
+    </table><br/><br/>
+
+    {% for p in a %}
+        <b>Tootaja :</b>
+        {{ p.service_desc_by_employee }}<br/>
+    {% endfor %}
+{% endblock content %}

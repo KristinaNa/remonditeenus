@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-<html>
-    <body>
+
     {{ form.as_p }}
         {% block content %}
             <table>
@@ -11,7 +10,7 @@
             {% for k in a %}
                 <tr>
                     <td>{{ k.device }}</td>
-                    <td>{{ k.name }}</td>
+                    <td><a href="#" onclick="showDescription({{ k.device }})">{{ k.name }}</a></td>
                     <td>{{ k.model }}</td>
                     <td>{{ k.manufacturer }}</td>
                 </tr>
@@ -29,6 +28,3 @@
 
 
         {% endblock content %}
-
-    </body>
-</html>

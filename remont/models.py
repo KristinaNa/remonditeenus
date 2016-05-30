@@ -346,7 +346,7 @@ class ServiceDevice(models.Model):
     service_device_status_type_fk = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
     device_fk = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
     service_order_fk = models.DecimalField(max_digits=10, decimal_places=0, blank=True, null=True)
-    to_store = models.DateTimeField(blank=True, null=True)
+    to_store = models.DateTimeField(auto_now_add=True)
     from_store = models.DateTimeField(blank=True, null=True)
     service_description = models.TextField(blank=True, null=True)
     status_changed = models.DateTimeField(blank=True, null=True)
